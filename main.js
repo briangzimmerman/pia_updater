@@ -18,31 +18,23 @@ scriptWriterStream
 
     let shell = spawn('sh', [scriptFile], { stdio: 'inherit' });
 
-    shell.on('error', (error) => {
-        console.log(`\nError running script: ${error.message}`);
+    shell.on('error', error => {
+        console.log("\nError running script:", error.message);
     }).on("close", code => {
-        console.log(`\nChild process exited with code ${code}`);
+        console.log("\nChild process exited with code", code);
     });
 });
-
-// Function to get the script download url from the html
-let getDownloadUrl = function (downloadPageHtml)
-{
-    let regexMatches = urlRegex.exec(downloadPageHtml);
-    
-    return regexMatches[1] || false;
-};
 
 // Grab the html from the download page and download file
 got(downloadUrl)
 .then(response => {
-    let url = getDownloadUrl(response.body);
+    let urlMatches = urlRegex.exec(response.body);
 
-    if (!url) {
+    if (urlMatches === null) {
         throw new Error('Could not find script url.');
     }
 
-    return url;
+    return urlMatches[1];
 })
 .then(scriptDownloadUrl => {
     console.log('Found script url:', scriptDownloadUrl);
