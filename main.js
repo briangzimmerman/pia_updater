@@ -19,9 +19,9 @@ scriptWriterStream
     let shell = spawn('sh', [scriptFile], { stdio: 'inherit' });
 
     shell.on('error', (error) => {
-        console.log(`\nerror: ${error.message}`);
+        console.log(`\nError running script: ${error.message}`);
     }).on("close", code => {
-        console.log(`\nchild process exited with code ${code}`);
+        console.log(`\nChild process exited with code ${code}`);
     });
 });
 
