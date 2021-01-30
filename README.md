@@ -5,4 +5,4 @@ To update the PIA application I have to download and run the install script.
 
 Because I'm lazy, I wrote this script to partially automate that process.
 
-Run `node main.js` to download the latest PIA install script for linux to the `/tmp` directory. This script will then run that install script.
+Run `node main.js` to download the latest PIA install script for linux to `/tmp/pia.run`. This script will then run that install script.
